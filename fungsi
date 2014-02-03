@@ -1,0 +1,47 @@
+
+DELIMITER $$;
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `total_pesanan`(kode bigint) RETURNS double CHARSET latin1
+    DETERMINISTIC
+BEGIN
+DECLARE jml double;
+SELECT sum(harga*jumlah) INTO jml FROM transaksi_detail where kode_transaksi=kode;
+RETURN jml;
+END$$
+
+CREATE  FUNCTION `total_pesanan`(kode bigint) RETURNS double 
+    DETERMINISTIC
+BEGIN
+DECLARE jml double;
+SELECT sum(harga*jumlah) INTO jml FROM transaksi_detail where kode_transaksi=kode;
+RETURN jml;
+END$$
+
+
+CREATE  FUNCTION tampil_bank(bank int) RETURNS varchar(30) DETERMINISTIC
+BEGIN
+DECLARE hasil varchar(30);
+SELECT nama_bank INTO hasil FROM bank where id_bank=bank;
+RETURN hasil;
+END$$
+
+CREATE  FUNCTION tampil_kurir(id_kurir int) RETURNS varchar(30) DETERMINISTIC
+BEGIN
+DECLARE hasil varchar(30);
+SELECT nama_jasa_pengiriman INTO hasil FROM jasa_pengiriman where id_jasa_pengiriman=id_kurir;
+RETURN hasil;
+END$$
+
+CREATE  FUNCTION tampil_toko(toko int) RETURNS varchar(30) DETERMINISTIC
+BEGIN
+DECLARE hasil varchar(30);
+SELECT nama_toko INTO hasil FROM toko where id_toko=toko;
+RETURN hasil;
+END
+
+CREATE  FUNCTION tampil_stok(produk int) RETURNS varchar(30) DETERMINISTIC
+BEGIN
+DECLARE hasil varchar(30);
+SELECT stok INTO hasil FROM produk where id_produk=produk;
+RETURN hasil;
+END$$
