@@ -68,6 +68,11 @@
                                     
                     <form  method="POST" id="form_input_produk" action="<?= base_url() ?>produk/tambah" enctype="multipart/form-data">                     
                       <div class="row-fluid">
+                        <div class="span3">Kode Produk:</div>
+                        <div class="span9"><input required="" type="text" size="40" id="kode_produk" name="kode_produk" />
+                        <i id="kode_error" style="display:none;color:red">kode sudah ada,silahkan input yang lain</i></div> 
+                      </div>  
+                      <div class="row-fluid">
                         <div class="span3">Nama Produk:</div>
                         <div class="span9"><input required="" type="text" size="40" name="nama_produk" />*</div> 
                       </div>  
@@ -217,8 +222,6 @@ eget, pretium porttitor quam. Sed varius vulputate lacinia. </li>
      $(document).ready(function(){
         var i=2;
 
-
-
         $("#tambah_upload").click(function(){
           $("#form_upload").append("<div class='row-fluid'><div class='span3'>gambar "+i+" :</div> <div class='span9'><input type='file' name='gambar-"+i+"' /></div> </div>");
           $("#jumlah_gambar").val(i);
@@ -226,6 +229,26 @@ eget, pretium porttitor quam. Sed varius vulputate lacinia. </li>
           return false;
         });
         
+
+             $("#kode_produk").change(function(){
+             var produk = $("#kode_produk").val();
+             //alert(produk);
+             $.ajax({
+                        type:'POST',
+                        url:'<?= base_url() ?>produk/cek_produk',
+                        data: "kode_produk="+produk,
+                        success: function(msg)
+                        {
+                            if(msg=="ada"){
+                              $("#kode_error").fadeIn(100);
+                              $("#kode_produk").val('');
+                            }
+                            else{
+                               $("#kode_error").fadeOut(100);
+                            }
+                        }  
+              });            
+         });
 
       
 

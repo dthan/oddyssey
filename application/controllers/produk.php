@@ -33,6 +33,12 @@ class Produk extends CI_Controller {
 	  	
 	}
 
+    public function cek_produk(){
+		$produk     = $this->input->post("kode_produk");
+		$cek_produk = $this->m_produk->cek_produk($produk);
+		echo $cek_produk;
+	}
+
 	public function tambah(){
 		error_reporting(0);
 		$nama_produk   = $this->input->post("nama_produk");
@@ -43,7 +49,8 @@ class Produk extends CI_Controller {
         $ket           = $this->input->post("ket");
         $harga_eceran  = $this->input->post("harga_eceran");
         $minimal       = $this->input->post("minimal");
-        $kode 		   = $this->m_produk->get_kode($kategori);
+       // $kode 		   = $this->m_produk->get_kode($kategori);
+        $kode          = $this->input->post("kode_produk");
         $data = array('id_produk'    => $kode,
         	          'nama_produk'  => $nama_produk , 
  					  'id_kategori'  => $kategori,

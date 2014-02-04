@@ -25,6 +25,17 @@ class M_produk extends CI_Model{
 		$this->db->delete('gambar_produk');
 	}
 
+	function cek_produk($id){
+		$this->db->where('id_produk',$id);
+		$q=$this->db->get('produk');
+		if($q->num_rows>=1){
+			return "ada";
+		}
+		else{
+			return "tidak";
+		}
+	}
+
 	function get_kode($kategori){
 	   $q=$this->db->query("select count(id_kategori) as jumlah from produk where id_kategori='$kategori' ");
        foreach ($q->result() as $jml) {
